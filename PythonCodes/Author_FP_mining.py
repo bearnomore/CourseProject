@@ -9,7 +9,7 @@ from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import fpgrowth
 
 
-# In[4]:
+# In[19]:
 
 
 # The closed Frequent Patterns of authors would be mined by FP growth algorithm in mlxtend lib + closed pattern definition
@@ -80,9 +80,36 @@ authorsFP2000.columns = ["author"]
 authorsFP2000
 
 
-# In[12]:
+# In[13]:
+
+
+# It would be helpful to add transaction index to the author patterns
+
+
+# In[34]:
+
+
+transaction_index = []
+for author in authorsFP2000['author']:
+    ind = dblp2000['author'].apply(lambda a_list: author in a_list)
+    transaction_index.append(dblp2000.loc[ind].index.tolist())
+
+
+# In[36]:
+
+
+authorsFP2000['transaction_index']  = transaction_index
+
+
+# In[37]:
+
+
+authorsFP2000
+
+
+# In[38]:
 
 
 output_path = path
-authorsFP2000.to_csv(output_path+"authorsFP2000.csv", index = False)
+authorsFP2000.to_csv(output_path+"authorsFP2000_with_index.csv", index = False)
 
