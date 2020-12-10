@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[31]:
+# In[1]:
 
 
 import pandas as pd
@@ -17,7 +17,7 @@ titlesFP = pd.read_csv(path + "titlesFP2000.csv") # closed sequential patterns f
 dblp_titles = pd.read_table(path + "DBLP2000_preprocessed_titles.txt", header = None) # preprocess titles from DBLP dataset
 
 
-# In[12]:
+# In[3]:
 
 
 titlesFP['title_pattern'] = titlesFP['title_pattern'].astype('str')
@@ -25,25 +25,19 @@ dblp_titles.columns = ['title']
 dblp_titles['title'] = dblp_titles['title'].astype('str')
 
 
-# In[15]:
+# In[4]:
 
 
 titlesFP.sort_values('Freq', ascending = False)
 
 
-# In[16]:
+# In[5]:
 
 
 dblp_titles
 
 
-# In[21]:
-
-
-False and False
-
-
-# In[22]:
+# In[6]:
 
 
 def find_pattern(title_pattern, title):
@@ -57,14 +51,7 @@ def find_pattern(title_pattern, title):
     return output
 
 
-# In[29]:
-
-
-p = titlesFP['title_pattern'].iloc[0]
-dblp_titles.loc[dblp_titles['title'].apply(lambda t: find_pattern(p, t))].index.tolist()
-
-
-# In[35]:
+# In[7]:
 
 
 # Find index of a title pattern in the dblp titles
@@ -77,7 +64,7 @@ def pattern_index(p, dblp_titles):
     return dblp_titles.loc[dblp_titles['title'].apply(lambda t: find_pattern(p, t))].index.tolist()
 
 
-# In[36]:
+# In[8]:
 
 
 # Find index of all title patterns in the title_spark dataset
@@ -87,20 +74,20 @@ end = time.time()
 print((end-start)/60)
 
 
-# In[37]:
+# In[9]:
 
 
 titlesFP
 
 
-# In[38]:
+# In[10]:
 
 
 # Check if all title patterns have transaction index found
 titlesFP.loc[titlesFP['transaction_index'].apply(lambda x: len(x)==0)]
 
 
-# In[39]:
+# In[11]:
 
 
 # Remove the above title pattern
@@ -108,13 +95,13 @@ broken = titlesFP.loc[titlesFP['transaction_index'].apply(lambda x: len(x)==0)].
 titlesFP = titlesFP.drop(broken)
 
 
-# In[40]:
+# In[12]:
 
 
 titlesFP
 
 
-# In[41]:
+# In[13]:
 
 
 output_path = path
