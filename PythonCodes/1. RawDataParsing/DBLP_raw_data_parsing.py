@@ -12,7 +12,7 @@ import pandas as pd
 # In[2]:
 
 
-path = "E:/CS_Master_Degree_UIUC/CS410_Text_Information_system/DBLP/" # File path
+path = "E:/CS_Master_Degree_UIUC/CS410_Text_Information_system/Project/Project Submission/CourseProject/Dataset/" # File path
 tree = ET.parse(path+"dblp50000.xml")
 root = tree.getroot()
 
