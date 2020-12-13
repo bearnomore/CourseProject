@@ -37,7 +37,8 @@ context_units
 D_size = len(D) # number of rows
 C_size = len(context_units) # number of columns
 # Initialize the weight matrix 
-transaction_w = np.zeros([C_size, D_size])
+#transaction_w = np.zeros([C_size, D_size])
+transaction_w = -1 * np.ones([C_size, D_size])
 context_index = context_units['transaction_index'].apply(lambda row: row[1:-1].split(', ')).apply(lambda row: list(map(int, row)))
 for i in range(C_size):
     context_ind = context_index.iloc[i]
@@ -118,13 +119,13 @@ def sim_tran_pattern(transaction_weights, pattern_weights):
 sim_scores_author = sim_tran_pattern(transaction_weights, author_weights)
 
 
-# In[ ]:
+# In[24]:
 
 
 sim_scores_author.to_csv(path+"similarity_scores_of_transaction_to_author.csv", index = False)
 
 
-# In[11]:
+# In[25]:
 
 
 author = authors[0]
@@ -133,7 +134,7 @@ sorted_scores_author = sim_scores_author.sort_values(by = author, ascending = Fa
 sorted_scores_author.head(10)
 
 
-# In[18]:
+# In[26]:
 
 
 ind = sorted_scores_author.index[0:r]
@@ -142,7 +143,7 @@ rep_titles[author] = D['title'].iloc[ind]
 rep_titles
 
 
-# In[19]:
+# In[27]:
 
 
 rep_titles.to_csv(path + 'rep_titles_author_example1.csv', index = False)
@@ -150,7 +151,7 @@ rep_titles.to_csv(path + 'rep_titles_author_example1.csv', index = False)
 
 # ### Calculate similarity between the transaction and the title
 
-# In[13]:
+# In[28]:
 
 
 # Get title list 
@@ -158,14 +159,14 @@ titles = context_units.iloc[14:]["pattern"]
 titles
 
 
-# In[14]:
+# In[29]:
 
 
 title_weights = context_weights.iloc[:, 15:]
 title_weights
 
 
-# In[15]:
+# In[30]:
 
 
 start = time.time()
@@ -174,7 +175,7 @@ end = time.time()
 print((end-start)/60)
 
 
-# In[ ]:
+# In[31]:
 
 
 sim_scores_title.to_csv(path+"similarity_scores_of_transaction_to_title.csv", index = False)
@@ -182,7 +183,7 @@ sim_scores_title.to_csv(path+"similarity_scores_of_transaction_to_title.csv", in
 
 # ### Show representative titles for a given title
 
-# In[16]:
+# In[32]:
 
 
 title = titles[10+15] # the same one used for definition
@@ -191,7 +192,7 @@ sorted_scores_title = sim_scores_title.sort_values(by = title, ascending = False
 sorted_scores_title.head(10)
 
 
-# In[17]:
+# In[33]:
 
 
 ind = sorted_scores_title.index[0:r]
@@ -200,7 +201,7 @@ rep_titles2[title] = D['title'].iloc[ind]
 rep_titles2
 
 
-# In[ ]:
+# In[35]:
 
 
 rep_titles2.to_csv(path + 'rep_titles_title_example1.csv', index = False)
